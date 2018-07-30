@@ -31,8 +31,10 @@ class Movimiento extends FunSuite {
   }
 
   test("Conjunto de Rutas"){
-
-    val movimientos1:List[dominio.Movimiento with Product with Serializable]=List(A(),A(),A(),A(),I(),A(),A(),D())
+    val archivo=File().leerArchivo()
+    val ruta1:Ruta=File().convertirARuta(archivo)
+    val ruta2:Ruta =ruta1
+    /*val movimientos1:List[dominio.Movimiento with Product with Serializable]=List(A(),A(),A(),A(),I(),A(),A(),D())
     val movimientos2:List[dominio.Movimiento with Product with Serializable]=List(D(),D(),A(),I(),A(),D())
     val movimientos3:List[dominio.Movimiento with Product with Serializable]=List(A(),A(),I(),A(),D(),A(),D())
     val movimientos4:List[dominio.Movimiento with Product with Serializable]=List(A(),A(),A(),A(),I(),A(),A(),D())
@@ -46,8 +48,9 @@ class Movimiento extends FunSuite {
     val pedido6:Pedido=Pedido(movimientos6)
     val pedidos1:List[Pedido]=List(pedido1,pedido2,pedido3)
     val pedidos2:List[Pedido]=List(pedido4,pedido5,pedido6)
-    val ruta1: Ruta =Ruta(pedidos1)
-    val ruta2: Ruta =Ruta(pedidos2)
+    //val ruta1: Ruta =Ruta(pedidos1)
+    //val ruta2: Ruta =Ruta(pedidos2)
+    */
     val rutas: List[Ruta] =List(ruta1,ruta2)
 
 
