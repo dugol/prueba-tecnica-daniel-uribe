@@ -16,17 +16,20 @@ class Mov extends FunSuite {
 
   test("Lista de pedidos"){
     val posicionInicial=Posicion(Coordenada(0,0),N())
-    val movimientos1:List[Movimiento]=List(A(),A(),A(),A(),I(),A(),A(),D())
+   /* val movimientos1:List[Movimiento]=List(A(),A(),A(),A(),I(),A(),A(),D())
     val movimientos2:List[Movimiento]=List(D(),D(),A(),I(),A(),D())
     val movimientos3:List[Movimiento]=List(A(),A(),I(),A(),D(),A(),D())
     val pedido1:Pedido=Pedido(movimientos1)
     val pedido2:Pedido= Pedido(movimientos2)
     val pedido3:Pedido=Pedido(movimientos3)
-    val pedidos:List[Pedido]=List(pedido1,pedido2,pedido3)
+    val pedidos:List[Pedido]=List(pedido1,pedido2,pedido3)*/
 
-    val output:List[Dron]=interpretacionRutaEntrega.realizarRuta(Dron(1,posicionInicial),Ruta(pedidos))
+    val ruta:Ruta=servicioArchivo.convertirARuta(servicioArchivo.leerArchivo("/home/s4n/Documents/in.txt"))
+    val dron:Dron=Dron(1,posicionInicial)
 
-    assert(output===List(Dron(1,Posicion(Coordenada(-2,4),N())),Dron(1,Posicion(Coordenada(-1,3),S())),Dron(1,Posicion(Coordenada(0,0),O()))))
+    val output:List[Dron]=interpretacionRutaEntrega.realizarRuta(dron,ruta)
+
+    assert(output===List(Dron(1,Posicion(Coordenada(-2,4),N())), Dron(1,Posicion(Coordenada(-1,3),S())), Dron(1,Posicion(Coordenada(0,0),O())), Dron(1,Posicion(Coordenada(-4,1),O())), Dron(1,Posicion(Coordenada(-5,1),S())), Dron(1,Posicion(Coordenada(-5,-1),O())), Dron(1,Posicion(Coordenada(-7,-1),E())), Dron(1,Posicion(Coordenada(-7,-3),E())), Dron(1,Posicion(Coordenada(-7,-2),N())), Dron(1,Posicion(Coordenada(-5,2),N()))))
 
   }
 /*

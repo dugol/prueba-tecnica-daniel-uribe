@@ -21,7 +21,6 @@ sealed trait servicioArchivo extends servicioArchivoAlgebra {
               case 'A' => A()
               case 'I' => I()
               case 'D' => D()
-              case _ => throw new Exception(s"Caracter invalido para creacion de instruccion: $y")
             }
         }
 

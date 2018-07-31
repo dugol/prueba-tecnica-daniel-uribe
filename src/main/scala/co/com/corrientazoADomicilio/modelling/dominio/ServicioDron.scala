@@ -41,7 +41,6 @@ sealed trait algebraEntrega {
 sealed trait interpretacionEntrega extends algebraEntrega {
   override def realizarEntrega(dron: Dron, pedido: Pedido): Dron = {
     if (pedido.movimientos.size > 0) {
-      println(dron)
       realizarEntrega(Dron(dron.id, servicioDron.moverDron(dron, pedido.movimientos.head).posicion), Pedido(pedido.movimientos.tail))
     } else {
       dron
