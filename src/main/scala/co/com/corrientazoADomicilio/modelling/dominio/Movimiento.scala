@@ -1,6 +1,6 @@
 package co.com.corrientazoADomicilio.modelling.dominio
 
-//Posibles Movimientos del Dron
+/*//Posibles Movimientos del Dron
 sealed trait Movimiento{
   def movimiento(posicion: Posicion):Posicion
 }
@@ -128,6 +128,7 @@ case class PlanRutas(rutas:List[Ruta]){
     }
   }
 }
+*/
 
 
 
