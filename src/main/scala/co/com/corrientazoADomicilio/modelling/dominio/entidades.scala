@@ -1,13 +1,32 @@
 package co.com.corrientazoADomicilio.modelling.dominio
 
-trait Movimiento{
-  def moverDron(posicion: Posicion):Posicion
-}
-trait Orientacion{
-  def rotarDron(movimiento: Movimiento):Orientacion
-}
-case class Coordenada(x:Int,y:Int)
-case class Posicion(coordenada: Coordenada,orientacion: Orientacion)
-case class Pedido(movimientos:List[Movimiento])
-case class Ruta(pedidos:List[Pedido])
-case class PlanRuta(rutas:List[Ruta])
+sealed trait Movimiento
+
+case class A() extends Movimiento
+
+case class D() extends Movimiento
+
+case class I() extends Movimiento
+
+case class Dron(id: Int, posicion: Posicion)
+
+sealed trait Orientacion
+
+case class S() extends Orientacion
+
+case class N() extends Orientacion
+
+case class E() extends Orientacion
+
+case class O() extends Orientacion
+
+
+case class Coordenada(x: Int, y: Int)
+
+case class Posicion(coordenada: Coordenada, orientacion: Orientacion)
+
+case class Pedido(movimientos: List[Movimiento])
+
+case class Ruta(pedidos: List[Pedido])
+
+case class PlanRuta(rutas: List[Ruta])
