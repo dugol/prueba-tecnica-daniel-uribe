@@ -1,12 +1,13 @@
 package co.com.corrientazoADomicilio
 
 import java.util.concurrent.Executors
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import co.com.corrientazoADomicilio.modelling.dominio._
 import org.scalatest.FunSuite
 
 import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.util.Try
 
 class Mov extends FunSuite {
 
@@ -29,14 +30,18 @@ class Mov extends FunSuite {
     val pedido3:Pedido=Pedido(movimientos3)
     val pedidos:List[Pedido]=List(pedido1,pedido2,pedido3)*/
 
-    val ruta:Ruta=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
-    val dron:Dron=Dron(1,posicionInicial,10)
+    val ruta:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
+    val resDefinitiva:List[Dron]=ruta.fold[List[Dron]](x=>{List(Dron(1,Posicion(Coordenada(0,0),N()),10))},s=>{
+      val dron:Dron=Dron(1,posicionInicial,10)
+      val output:Future[List[Dron]]=interpretacionRutaEntrega.realizarRuta(dron,s)
+      val res=Await.result(output,10 seconds)
+      res
+      })
 
-    val output:Future[List[Dron]]=interpretacionRutaEntrega.realizarRuta(dron,ruta)
-    val res=Await.result(output,10 seconds)
 
 
-    assert(res===List(Dron(1,Posicion(Coordenada(-2,4),N()),10), Dron(1,Posicion(Coordenada(-1,3),S()),10), Dron(1,Posicion(Coordenada(0,0),O()),10), Dron(1,Posicion(Coordenada(-4,1),O()),10), Dron(1,Posicion(Coordenada(-5,1),S()),10), Dron(1,Posicion(Coordenada(-5,-1),O()),10), Dron(1,Posicion(Coordenada(-7,-1),E()),10), Dron(1,Posicion(Coordenada(-7,-3),E()),10), Dron(1,Posicion(Coordenada(-7,-2),N()),10), Dron(1,Posicion(Coordenada(-5,2),N()),10)))
+    assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(-2,4),N()),10), Dron(1,Posicion(Coordenada(-1,3),S()),10), Dron(1,Posicion(Coordenada(0,0),O()),10), Dron(1,Posicion(Coordenada(-4,1),O()),10), Dron(1,Posicion(Coordenada(-5,1),S()),10), Dron(1,Posicion(Coordenada(-5,-1),O()),10), Dron(1,Posicion(Coordenada(-7,-1),E()),10), Dron(1,Posicion(Coordenada(-7,-3),E()),10), Dron(1,Posicion(Coordenada(-7,-2),N()),10), Dron(1,Posicion(Coordenada(-5,2),N()),10)))
+    //assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(0,0),N()),10)))
 
   }
 /*
