@@ -19,6 +19,7 @@ class Mov extends FunSuite {
   }*/
 
 
+
   test("Lista de pedidos"){
     val posicionInicial=Posicion(Coordenada(0,0),N())
     implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
@@ -31,11 +32,14 @@ class Mov extends FunSuite {
     val pedidos:List[Pedido]=List(pedido1,pedido2,pedido3)*/
 
     val ruta:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
-    val resDefinitiva:List[Dron]=ruta.fold[List[Dron]](x=>{List(Dron(1,Posicion(Coordenada(0,0),N()),10))},s=>{
+    val resDefinitiva:Try[List[Dron]]=ruta.fold[Try[List[Dron]]](x=>{//println(x)
+      //List(Dron(1,Posicion(Coordenada(0,0),N()),10))
+      Try(throw new Exception(x.getMessage))
+    },s=>{
       val dron:Dron=Dron(1,posicionInicial,10)
       val output:Future[List[Dron]]=interpretacionRutaEntrega.realizarRuta(dron,s)
       val res=Await.result(output,10 seconds)
-      res
+      Try(res)
       })
 
 
