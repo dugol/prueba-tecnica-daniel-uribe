@@ -40,8 +40,8 @@ class Mov extends FunSuite {
 
 
 
-    assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(-2,4),N()),10), Dron(1,Posicion(Coordenada(-1,3),S()),10), Dron(1,Posicion(Coordenada(0,0),O()),10), Dron(1,Posicion(Coordenada(-4,1),O()),10), Dron(1,Posicion(Coordenada(-5,1),S()),10), Dron(1,Posicion(Coordenada(-5,-1),O()),10), Dron(1,Posicion(Coordenada(-7,-1),E()),10), Dron(1,Posicion(Coordenada(-7,-3),E()),10), Dron(1,Posicion(Coordenada(-7,-2),N()),10), Dron(1,Posicion(Coordenada(-5,2),N()),10)))
-    //assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(0,0),N()),10)))
+    //assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(-2,4),N()),10), Dron(1,Posicion(Coordenada(-1,3),S()),10), Dron(1,Posicion(Coordenada(0,0),O()),10), Dron(1,Posicion(Coordenada(-4,1),O()),10), Dron(1,Posicion(Coordenada(-5,1),S()),10), Dron(1,Posicion(Coordenada(-5,-1),O()),10), Dron(1,Posicion(Coordenada(-7,-1),E()),10), Dron(1,Posicion(Coordenada(-7,-3),E()),10), Dron(1,Posicion(Coordenada(-7,-2),N()),10), Dron(1,Posicion(Coordenada(-5,2),N()),10)))
+    assert(resDefinitiva===List(Dron(1,Posicion(Coordenada(0,0),N()),10)))
 
   }
 /*
