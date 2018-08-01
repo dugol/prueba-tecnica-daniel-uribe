@@ -3,33 +3,54 @@ package co.com.corrientazoADomicilio.modelling.dominio
 import java.util.concurrent.Executors
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 //Servicios de Movimiento
 
 sealed trait movimientoDronAlgebra {
-  def moverDron(dron: Dron, movimiento: Movimiento): Dron
+  def moverDron(dron: Dron, movimiento: Movimiento): Try[Dron]
 }
 
 sealed trait movimientoDron extends movimientoDronAlgebra {
-  override def moverDron(dron: Dron, movimiento: Movimiento): Dron = {
+  override def moverDron(dron: Dron, movimiento: Movimiento): Try[Dron] = {
     movimiento match {
       case A() => dron.posicion.orientacion match {
-        case N() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y + 1), N()),dron.capacidad)
-        case S() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y - 1), S()),dron.capacidad)
-        case O() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x - 1, dron.posicion.coordenada.y), O()),dron.capacidad)
-        case E() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x + 1, dron.posicion.coordenada.y), E()),dron.capacidad)
+        case N() => {
+          if (dron.posicion.coordenada.y > 9) {
+            Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
+          }
+          else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y + 1), N()), dron.capacidad))
+        }
+        case S() => {
+          if (dron.posicion.coordenada.y < (-9)) {
+            Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
+          }
+          else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y - 1), S()), dron.capacidad))
+        }
+        case O() => {
+          if (dron.posicion.coordenada.x < (-9)) {
+            Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
+          }
+          else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x - 1, dron.posicion.coordenada.y), O()), dron.capacidad))
+        }
+        case E() => {
+          if (dron.posicion.coordenada.x > 9) {
+            Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
+          }
+          else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x + 1, dron.posicion.coordenada.y), E()), dron.capacidad))
+        }
       }
       case I() => dron.posicion.orientacion match {
-        case N() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), O()),dron.capacidad)
-        case S() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), E()),dron.capacidad)
-        case E() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), N()),dron.capacidad)
-        case O() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), S()),dron.capacidad)
+        case N() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), O()), dron.capacidad))
+        case S() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), E()), dron.capacidad))
+        case E() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), N()), dron.capacidad))
+        case O() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), S()), dron.capacidad))
       }
       case D() => dron.posicion.orientacion match {
-        case N() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), E()),dron.capacidad)
-        case S() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), O()),dron.capacidad)
-        case E() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), S()),dron.capacidad)
-        case O() => Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), N()),dron.capacidad)
+        case N() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), E()), dron.capacidad))
+        case S() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), O()), dron.capacidad))
+        case E() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), S()), dron.capacidad))
+        case O() => Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y), N()), dron.capacidad))
       }
     }
   }
