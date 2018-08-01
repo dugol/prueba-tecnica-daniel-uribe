@@ -8,7 +8,7 @@ case class D() extends Movimiento
 
 case class I() extends Movimiento
 
-case class Dron(id: Int, posicion: Posicion)
+case class Dron(id: Int, posicion: Posicion,capacidad:Int)
 
 sealed trait Orientacion
 
@@ -29,4 +29,4 @@ case class Pedido(movimientos: List[Movimiento])
 
 case class Ruta(pedidos: List[Pedido])
 
-case class PlanRuta(rutas: List[Ruta])
+//case class PlanRuta(rutas: List[Ruta])

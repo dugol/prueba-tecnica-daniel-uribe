@@ -1,21 +1,26 @@
 package co.com.corrientazoADomicilio
 
-import co.com.corrientazoADomicilio.modelling.dominio
+import java.util.concurrent.Executors
+import scala.concurrent.duration._
+
 import co.com.corrientazoADomicilio.modelling.dominio._
 import org.scalatest.FunSuite
 
+import scala.concurrent.{Await, ExecutionContext, Future}
+
 class Mov extends FunSuite {
 
-  test("Pedido"){
+  /*test("Pedido"){
     val posicionInicial=Posicion(Coordenada(0,0),N())
     val movimientos:List[Movimiento]=List(A(),A(),A(),A(),I(),A(),A(),D())
-    val res=interpretacionEntrega.realizarEntrega(Dron(1,posicionInicial),Pedido(movimientos))
-    assert(res===Dron(1,Posicion(Coordenada(-2,4),N())))
-  }
+    val res=interpretacionEntrega.realizarEntrega(Dron(1,posicionInicial,10),Pedido(movimientos))
+    assert(res===Dron(1,Posicion(Coordenada(-2,4),N()),10))
+  }*/
 
 
   test("Lista de pedidos"){
     val posicionInicial=Posicion(Coordenada(0,0),N())
+    implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
    /* val movimientos1:List[Movimiento]=List(A(),A(),A(),A(),I(),A(),A(),D())
     val movimientos2:List[Movimiento]=List(D(),D(),A(),I(),A(),D())
     val movimientos3:List[Movimiento]=List(A(),A(),I(),A(),D(),A(),D())
@@ -24,12 +29,14 @@ class Mov extends FunSuite {
     val pedido3:Pedido=Pedido(movimientos3)
     val pedidos:List[Pedido]=List(pedido1,pedido2,pedido3)*/
 
-    val ruta:Ruta=servicioArchivo.convertirARuta(servicioArchivo.leerArchivo("/home/s4n/Documents/in.txt"))
-    val dron:Dron=Dron(1,posicionInicial)
+    val ruta:Ruta=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
+    val dron:Dron=Dron(1,posicionInicial,10)
 
-    val output:List[Dron]=interpretacionRutaEntrega.realizarRuta(dron,ruta)
+    val output:Future[List[Dron]]=interpretacionRutaEntrega.realizarRuta(dron,ruta)
+    val res=Await.result(output,10 seconds)
 
-    assert(output===List(Dron(1,Posicion(Coordenada(-2,4),N())), Dron(1,Posicion(Coordenada(-1,3),S())), Dron(1,Posicion(Coordenada(0,0),O())), Dron(1,Posicion(Coordenada(-4,1),O())), Dron(1,Posicion(Coordenada(-5,1),S())), Dron(1,Posicion(Coordenada(-5,-1),O())), Dron(1,Posicion(Coordenada(-7,-1),E())), Dron(1,Posicion(Coordenada(-7,-3),E())), Dron(1,Posicion(Coordenada(-7,-2),N())), Dron(1,Posicion(Coordenada(-5,2),N()))))
+
+    assert(res===List(Dron(1,Posicion(Coordenada(-2,4),N()),10), Dron(1,Posicion(Coordenada(-1,3),S()),10), Dron(1,Posicion(Coordenada(0,0),O()),10), Dron(1,Posicion(Coordenada(-4,1),O()),10), Dron(1,Posicion(Coordenada(-5,1),S()),10), Dron(1,Posicion(Coordenada(-5,-1),O()),10), Dron(1,Posicion(Coordenada(-7,-1),E()),10), Dron(1,Posicion(Coordenada(-7,-3),E()),10), Dron(1,Posicion(Coordenada(-7,-2),N()),10), Dron(1,Posicion(Coordenada(-5,2),N()),10)))
 
   }
 /*

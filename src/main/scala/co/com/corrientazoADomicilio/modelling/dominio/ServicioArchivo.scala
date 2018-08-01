@@ -2,13 +2,13 @@ package co.com.corrientazoADomicilio.modelling.dominio
 
 import scala.io.Source
 
-sealed trait servicioArchivoAlgebra {
+sealed trait ArchivoAlgebra {
   def leerArchivo(url: String): List[List[Movimiento]]
 
   def convertirARuta(rutaAConvertir: List[List[Movimiento]]): Ruta
 }
 
-sealed trait servicioArchivo extends servicioArchivoAlgebra {
+sealed trait Archivo extends ArchivoAlgebra {
   def leerArchivo(url: String): List[List[Movimiento]] = {
     val source = Source.fromFile(url)
 
@@ -32,7 +32,19 @@ sealed trait servicioArchivo extends servicioArchivoAlgebra {
   }
 }
 
-object servicioArchivo extends servicioArchivo
+sealed trait servicioConvertirArchivoARutaAlgebra{
+  def convertirArchivoARuta(path:String):Ruta
+}
+
+sealed trait servicioCovertirArchivoARuta extends  servicioConvertirArchivoARutaAlgebra{
+  override def convertirArchivoARuta(path: String): Ruta = {
+    Archivo.convertirARuta(Archivo.leerArchivo(path))
+
+  }
+}
+object servicioCovertirArchivoARuta extends servicioCovertirArchivoARuta
+
+private object Archivo extends Archivo
 
 
 
