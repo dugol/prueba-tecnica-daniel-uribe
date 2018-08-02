@@ -1,18 +1,17 @@
 package co.com.corrientazoADomicilio.modelling.dominio
 
-import java.io.{File, PrintWriter}
 import java.util.concurrent.Executors
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Success, Try}
+import scala.util.{Try}
 
 //Servicios de Movimiento
 
-sealed trait movimientoDronAlgebra {
+sealed trait ServicioDronAlg {
   def moverDron(dron: Dron, movimiento: Movimiento): Try[Dron]
 }
 
-sealed trait movimientoDron extends movimientoDronAlgebra {
+sealed trait ServicioDron extends ServicioDronAlg {
   override def moverDron(dron: Dron, movimiento: Movimiento): Try[Dron] = {
     movimiento match {
       case A() => dron.posicion.orientacion match {
@@ -57,60 +56,17 @@ sealed trait movimientoDron extends movimientoDronAlgebra {
   }
 }
 
-private object movimientoDron extends movimientoDron
 
+object ServicioDron extends ServicioDron
 
-sealed trait algebraEntrega {
-  def realizarEntrega(dron: Dron, pedido: Pedido): Try[Dron]
-}
-
-sealed trait interpretacionEntrega extends algebraEntrega {
-  override def realizarEntrega(dron: Dron, pedido: Pedido): Try[Dron] = {
-
-    Try(pedido.movimientos.foldLeft(dron){(acu:Dron,item:Movimiento)=>Dron(dron.id,movimientoDron.moverDron(acu,item).get.posicion,dron.capacidad)})
-    /*if (pedido.movimientos.size > 0) {
-      realizarEntrega(Dron(dron.id, movimientoDron.moverDron(dron, pedido.movimientos.head).posicion, dron.capacidad), Pedido(pedido.movimientos.tail))
-    } else {
-      dron
-    }*/
-
-  }
-}
-
-private object interpretacionEntrega extends interpretacionEntrega
-
-sealed trait algebraRutaDeEntrega {
-  def realizarRuta(dron: Dron, ruta: Ruta)
-  def entregarReporte(drones:List[Dron],id:Int)
-
-}
-
-sealed trait interpretacionRutaEntrega extends algebraRutaDeEntrega {
-  implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
-
-  def entregarReporte(posiciones:List[Dron],id:Int)={
-    val pw=new PrintWriter(new File(s"out${id}.txt"))
-    println(posiciones)
-    pw.write("==Reporte de entregas==")
-    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion.toString}"))
-    pw.close()
-  }
-
-  override def realizarRuta(dron: Dron, ruta: Ruta) = {
-
-    Future(entregarReporte(ruta.pedidos.scanLeft(dron)((a,b)=>interpretacionEntrega.realizarEntrega(a,b).get).tail,dron.id))
-  }
-}
-
-
-private object interpretacionRutaEntrega extends interpretacionRutaEntrega
-
-sealed trait algebraServicioCorrientazoADomicilio {
+sealed trait ServicioCorrientazoADomicilioAlg {
   def realizarDomicilios(rutas: List[Try[Ruta]])
+  protected def realizarEntrega(dron: Dron, pedido: Pedido): Try[Dron]
+  protected def realizarRuta(dron: Dron, ruta: Ruta)
 
 }
 
-sealed trait servicioCorrientazoADomicilio extends algebraServicioCorrientazoADomicilio{
+sealed trait ServicioCorrientazoADomicilio extends ServicioCorrientazoADomicilioAlg{
   implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
 
@@ -121,8 +77,19 @@ sealed trait servicioCorrientazoADomicilio extends algebraServicioCorrientazoADo
     rutasConIdDron
       .map(x=>x._1.fold(y=>{Future(List(Dron(1,Posicion(Coordenada(0,0),N()),10)))},z=>{
         println("Entre")
-        interpretacionRutaEntrega.realizarRuta(Dron(x._2,Posicion(Coordenada(0,0),N()),10),z)}))
+        realizarRuta(Dron(x._2,Posicion(Coordenada(0,0),N()),10),z)}))
+  }
+
+  protected override def realizarEntrega(dron: Dron, pedido: Pedido): Try[Dron] = {
+
+    Try(pedido.movimientos.foldLeft(dron){(acu:Dron,item:Movimiento)=>Dron(dron.id,ServicioDron.moverDron(acu,item).get.posicion,dron.capacidad)})
+
+  }
+
+  protected override def realizarRuta(dron: Dron, ruta: Ruta) = {
+
+    Future(ServicioArchivo.entregarReporte(ruta.pedidos.scanLeft(dron)((a,b)=>realizarEntrega(a,b).get).tail,dron.id))
   }
 }
 
-object servicioCorrientazoADomicilio extends servicioCorrientazoADomicilio
+object ServicioCorrientazoADomicilio extends ServicioCorrientazoADomicilio
