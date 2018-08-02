@@ -99,7 +99,6 @@ sealed trait interpretacionRutaEntrega extends algebraRutaDeEntrega {
   override def realizarRuta(dron: Dron, ruta: Ruta) = {
 
     Future(entregarReporte(ruta.pedidos.scanLeft(dron)((a,b)=>interpretacionEntrega.realizarEntrega(a,b).get).tail,dron.id))
-    //Future(ruta.pedidos.scanLeft(dron)((a, b) => interpretacionEntrega.realizarEntrega(a, b))..tail)
   }
 }
 
@@ -117,11 +116,12 @@ sealed trait servicioCorrientazoADomicilio extends algebraServicioCorrientazoADo
 
   override def realizarDomicilios(rutas: List[Try[Ruta]]) = {
     val rutasSucces=rutas.filter(x=>x.isSuccess)
-    val idDron:List[Int]=Range(1,rutasSucces.size).toList
+    val idDron:List[Int]=Range(1,rutasSucces.size+1).toList
     val rutasConIdDron: List[(Try[Ruta], Int)] =rutasSucces.zip(idDron)
-    println(s"rutasConIdDron${rutasSucces}")
     rutasConIdDron
-      .map(x=>x._1.fold(y=>{Future(List(Dron(1,Posicion(Coordenada(0,0),N()),10)))},z=>{interpretacionRutaEntrega.realizarRuta(Dron(x._2,Posicion(Coordenada(0,0),N()),10),z)}))
+      .map(x=>x._1.fold(y=>{Future(List(Dron(1,Posicion(Coordenada(0,0),N()),10)))},z=>{
+        println("Entre")
+        interpretacionRutaEntrega.realizarRuta(Dron(x._2,Posicion(Coordenada(0,0),N()),10),z)}))
   }
 }
 

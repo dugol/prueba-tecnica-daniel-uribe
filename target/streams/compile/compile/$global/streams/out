@@ -1,4 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:95:141: ';' expected but ')' found.[0m
-[0m[[0m[31merror[0m] [0m[0m    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion.toString}")))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                                                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:121:26: overloaded method value apply with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (start: Int,end: Int)scala.collection.immutable.Range <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (start: Int,end: Int,step: Int)scala.collection.immutable.Range[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (scala.collection.immutable.Range.Inclusive)[0m
+[0m[[0m[31merror[0m] [0m[0m    val idDron:List[Int]=Range(1 to rutasSucces.size)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
