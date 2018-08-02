@@ -1,8 +1,8 @@
-[0m[[0m[0mdebug[0m] [0m[0mThe co.com.corrientazoADomicilio.modelling.dominio.servicioCorrientazoADomicilio$ has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(entregarReporte,[Default]).[0m
+[0m[[0m[0mdebug[0m] [0m[0mThe co.com.corrientazoADomicilio.modelling.dominio.ServicioCorrientazoADomicilio$ has the following regular definitions changed:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	UsedName(realizarEntrega,[Default]), UsedName(realizarRuta,[Default]).[0m
 [0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) co.com.corrientazoADomicilio.modelling.dominio.servicioCorrientazoADomicilio$: Set(); now invalidating by inheritance (internally).[0m
+[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) co.com.corrientazoADomicilio.modelling.dominio.ServicioCorrientazoADomicilio$: Set(); now invalidating by inheritance (internally).[0m
 [0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) co.com.corrientazoADomicilio.modelling.dominio.servicioCorrientazoADomicilio$.[0m
+[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) co.com.corrientazoADomicilio.modelling.dominio.ServicioCorrientazoADomicilio$.[0m
 [0m[[0m[0mdebug[0m] [0m[0mNone of the modified names appears in source file of co.com.corrientazoADomicilio.Mov. This dependency is not being considered for invalidation.[0m
 [0m[[0m[0mdebug[0m] [0m[0mNo changes[0m

@@ -20,10 +20,10 @@ class Mov extends FunSuite {
 
   test("Servicio corrientazo a domicilio"){
     implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
-    val ruta1:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
-    val ruta2:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")
+    val ruta1:Try[Ruta]=ServicioArchivo.convertirArchivoARuta("/home/s4n/Documents/in.txt")
+    val ruta2:Try[Ruta]=ServicioArchivo.convertirArchivoARuta("/home/s4n/Documents/in.txt")
     val rutas:List[Try[Ruta]]=List(ruta1,ruta2)
-    servicioCorrientazoADomicilio.realizarDomicilios(rutas)
+    ServicioCorrientazoADomicilio.realizarDomicilios(rutas)
     //val res2=res.map(x=>Await.result(x,10 seconds))
     //assert(res2===1)
   }
