@@ -2,8 +2,9 @@ package co.com.corrientazoADomicilio
 
 import java.util.concurrent.Executors
 
-import scala.concurrent.duration._
-import co.com.corrientazoADomicilio.modelling.dominio._
+import co.com.corrientazoADomicilio.modelling.dominio.entities.Ruta
+
+import co.com.corrientazoADomicilio.modelling.dominio.services.{ServicioArchivo, ServicioCorrientazoADomicilio}
 import org.scalatest.FunSuite
 
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -21,7 +22,7 @@ class Mov extends FunSuite {
   test("Servicio corrientazo a domicilio"){
     implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
     val ruta1:Try[Ruta]=ServicioArchivo.convertirArchivoARuta("/home/s4n/Documents/in.txt")
-    val ruta2:Try[Ruta]=ServicioArchivo.convertirArchivoARuta("/home/s4n/Documents/in.txt")
+    val ruta2:Try[Ruta]=ServicioArchivo.convertirArchivoARuta("/home/s4n/Documents/in2.txt")
     val rutas:List[Try[Ruta]]=List(ruta1,ruta2)
     ServicioCorrientazoADomicilio.realizarDomicilios(rutas)
     //val res2=res.map(x=>Await.result(x,10 seconds))
