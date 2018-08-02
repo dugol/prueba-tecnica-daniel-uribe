@@ -12,13 +12,29 @@ case class Dron(id: Int, posicion: Posicion,capacidad:Int)
 
 sealed trait Orientacion
 
-case class S() extends Orientacion
+case class S() extends Orientacion{
+  override def toString: String = {
+    "Sur"
+  }
+}
 
-case class N() extends Orientacion
+case class N() extends Orientacion{
+  override def toString: String = {
+    "Norte"
+  }
+}
 
-case class E() extends Orientacion
+case class E() extends Orientacion{
+  override def toString: String = {
+    "Este"
+  }
+}
 
-case class O() extends Orientacion
+case class O() extends Orientacion{
+  override def toString: String = {
+    "Oeste"
+  }
+}
 
 
 case class Coordenada(x: Int, y: Int)

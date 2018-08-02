@@ -8,9 +8,9 @@ import scala.io.Source
 import scala.util.Try
 
 sealed trait ServicioArchivoAlg {
-  def leerArchivo(url: String): Try[List[List[Movimiento]]]
+  protected def leerArchivo(url: String): Try[List[List[Movimiento]]]
 
-  def convertirARuta(rutaAConvertir: Try[List[List[Movimiento]]]): Try[Ruta]
+  protected def convertirARuta(rutaAConvertir: Try[List[List[Movimiento]]]): Try[Ruta]
 
   def convertirArchivoARuta(path:String):Try[Ruta]
 
@@ -18,7 +18,7 @@ sealed trait ServicioArchivoAlg {
 }
 
 sealed trait ServicioArchivo extends ServicioArchivoAlg {
-  def leerArchivo(url: String): Try[List[List[Movimiento]]] = {
+  protected def leerArchivo(url: String): Try[List[List[Movimiento]]] = {
     val source = Source.fromFile(url)
 
     val lines = source.getLines()
@@ -37,7 +37,7 @@ sealed trait ServicioArchivo extends ServicioArchivoAlg {
     })
   }
 
-  def convertirARuta(rutaAConvertir: Try[List[List[Movimiento]]]): Try[Ruta] = {
+  protected def convertirARuta(rutaAConvertir: Try[List[List[Movimiento]]]): Try[Ruta] = {
 
     Try(Ruta(rutaAConvertir.map(x => x.map(y=>Pedido(y))).get))
   }
@@ -49,9 +49,8 @@ sealed trait ServicioArchivo extends ServicioArchivoAlg {
 
   def entregarReporte(posiciones:List[Dron],id:Int)={
     val pw=new PrintWriter(new File(s"out${id}.txt"))
-    println(posiciones)
     pw.write("==Reporte de entregas==")
-    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion.toString}"))
+    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion}"))
     pw.close()
   }
 

@@ -7,3 +7,7 @@ testOnly co.com.corrientazoADomicilio.Movimiento
 testOnly co.com.corrientazoADomicilio.Mov
 clear
 testOnly co.com.corrientazoADomicilio.Mov
+exit
+testOnly co.com.corrientazoADomicilio.Mov
+exit
+testOnly co.com.corrientazoADomicilio.ServicesTest

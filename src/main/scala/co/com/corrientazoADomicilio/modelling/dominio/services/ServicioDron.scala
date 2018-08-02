@@ -66,22 +66,22 @@ sealed trait ServicioDron extends ServicioDronAlg {
     }
   }
 
-  override protected def validarMovimientoNorte(dron: Dron): Try[Dron] = {
+  protected override  def validarMovimientoNorte(dron: Dron): Try[Dron] = {
     if (dron.posicion.coordenada.y > 9) Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
     else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y + 1), N()), dron.capacidad))
   }
 
-  override protected def validarMovimientoSur(dron: Dron): Try[Dron] = {
+  protected override def validarMovimientoSur(dron: Dron): Try[Dron] = {
     if (dron.posicion.coordenada.y < (-9)) Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
     else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x, dron.posicion.coordenada.y - 1), S()), dron.capacidad))
   }
 
-  override protected def validarMovimientoEste(dron: Dron): Try[Dron] = {
+  protected override def validarMovimientoEste(dron: Dron): Try[Dron] = {
     if (dron.posicion.coordenada.x > 9) Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
     else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x + 1, dron.posicion.coordenada.y), E()), dron.capacidad))
   }
 
-  override protected def validarMovimientoOeste(dron: Dron): Try[Dron] = {
+  protected override def validarMovimientoOeste(dron: Dron): Try[Dron] = {
     if (dron.posicion.coordenada.x < (-9)) Try(throw new Exception("Nueva posicion excede cuadras permitidas"))
     else Try(Dron(dron.id, Posicion(Coordenada(dron.posicion.coordenada.x - 1, dron.posicion.coordenada.y), O()), dron.capacidad))
   }
