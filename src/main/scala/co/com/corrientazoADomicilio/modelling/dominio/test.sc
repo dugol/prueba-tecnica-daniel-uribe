@@ -1,3 +1,4 @@
+import co.com.corrientazoADomicilio.modelling.dominio.entities._
 import co.com.corrientazoADomicilio.modelling.dominio._
 
 val movimientos1: List[Movimiento] =List(A,A,A,A,I,A,A,D)

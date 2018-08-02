@@ -1,0 +1,11 @@
+==Reporte de entregas==
+(-2,4) Orientacion Norte
+(-1,3) Orientacion Sur
+(0,0) Orientacion Oeste
+(-4,1) Orientacion Oeste
+(-5,1) Orientacion Sur
+(-5,-1) Orientacion Oeste
+(-7,-1) Orientacion Este
+(-7,-3) Orientacion Este
+(-7,-2) Orientacion Norte
+(-5,2) Orientacion Norte

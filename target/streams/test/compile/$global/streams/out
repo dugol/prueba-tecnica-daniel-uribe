@@ -1,7 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/test/scala/co/com/corrientazoADomicilio/Mov.scala:23:25: not found: value servicioCovertirArchivoARuta[0m
-[0m[[0m[31merror[0m] [0m[0m    val ruta1:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")[0m
-[0m[[0m[31merror[0m] [0m[0m                        ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/test/scala/co/com/corrientazoADomicilio/Mov.scala:24:25: not found: value servicioCovertirArchivoARuta[0m
-[0m[[0m[31merror[0m] [0m[0m    val ruta2:Try[Ruta]=servicioCovertirArchivoARuta.convertirArchivoARuta("/home/s4n/Documents/in.txt")[0m
-[0m[[0m[31merror[0m] [0m[0m                        ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/test/scala/co/com/corrientazoADomicilio/Mov.scala:35:92: Int(0) does not take parameters[0m
+[0m[[0m[31merror[0m] [0m[0m    val res:Try[Dron]=ServicioDron.validarMovimientoSur(Dron(1,Posicion(Coordenada(-10,0),0()),10))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

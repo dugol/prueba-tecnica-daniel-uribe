@@ -1,2 +1,13 @@
 [0m[[0m[0minfo[0m] [0m[0m[32mMov:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Mover Dron hacia adelante mirando para el norte[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Mover Dron adelante mirando para el sur [0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Mover Dron adelante mirando para el Oeste[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Mover Dron adelante mirando para el Este[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Girar Dron 90° a la izquierda mirando para el norte[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Girar Dron 90° a la izquierda mirando para el sur[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Girar Dron 90° a la izquierda mirando para el Este[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Girar Dron 90° a la izquierda mirando para el Oeste[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Convertir Archivo a ruta[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Convertir Archivo a ruta fallido[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Escribir archivo[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Servicio corrientazo a domicilio[0m[0m
