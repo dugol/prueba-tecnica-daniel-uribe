@@ -1,6 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:62:11: Cannot find an implicit ExecutionContext. You might pass[0m
-[0m[[0m[31merror[0m] [0m[0man (implicit ec: ExecutionContext) parameter to your method[0m
-[0m[[0m[31merror[0m] [0m[0mor import scala.concurrent.ExecutionContext.Implicits.global.[0m
-[0m[[0m[31merror[0m] [0m[0m    Future(ruta.pedidos.scanLeft(dron)((a, b) => interpretacionEntrega.realizarEntrega(a, b)).tail)[0m
-[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:95:141: ';' expected but ')' found.[0m
+[0m[[0m[31merror[0m] [0m[0m    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion.toString}")))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                                                                            ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
