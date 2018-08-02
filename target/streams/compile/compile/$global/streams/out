@@ -1,6 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:62:11: Cannot find an implicit ExecutionContext. You might pass[0m
-[0m[[0m[31merror[0m] [0m[0man (implicit ec: ExecutionContext) parameter to your method[0m
-[0m[[0m[31merror[0m] [0m[0mor import scala.concurrent.ExecutionContext.Implicits.global.[0m
-[0m[[0m[31merror[0m] [0m[0m    Future(ruta.pedidos.scanLeft(dron)((a, b) => interpretacionEntrega.realizarEntrega(a, b)).tail)[0m
-[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Downloads/prueba-tecnica-daniel-uribe/src/main/scala/co/com/corrientazoADomicilio/modelling/dominio/ServicioDron.scala:121:26: overloaded method value apply with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (start: Int,end: Int)scala.collection.immutable.Range <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (start: Int,end: Int,step: Int)scala.collection.immutable.Range[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (scala.collection.immutable.Range.Inclusive)[0m
+[0m[[0m[31merror[0m] [0m[0m    val idDron:List[Int]=Range(1 to rutasSucces.size)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

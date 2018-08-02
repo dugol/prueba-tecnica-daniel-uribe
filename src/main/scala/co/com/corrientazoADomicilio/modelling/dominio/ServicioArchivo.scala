@@ -1,5 +1,8 @@
 package co.com.corrientazoADomicilio.modelling.dominio
 
+import java.io.{File, PrintWriter}
+
+import scala.concurrent.Future
 import scala.io.Source
 import scala.util.Try
 
@@ -33,6 +36,7 @@ sealed trait Archivo extends ArchivoAlgebra {
 
     Try(Ruta(rutaAConvertir.map(x => x.map(y=>Pedido(y))).get))
   }
+
 }
 
 sealed trait servicioConvertirArchivoARutaAlgebra{

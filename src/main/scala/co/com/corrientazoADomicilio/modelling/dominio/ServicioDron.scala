@@ -1,9 +1,10 @@
 package co.com.corrientazoADomicilio.modelling.dominio
 
+import java.io.{File, PrintWriter}
 import java.util.concurrent.Executors
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Try
+import scala.util.{Success, Try}
 
 //Servicios de Movimiento
 
@@ -79,22 +80,49 @@ sealed trait interpretacionEntrega extends algebraEntrega {
 private object interpretacionEntrega extends interpretacionEntrega
 
 sealed trait algebraRutaDeEntrega {
-  def realizarRuta(dron: Dron, ruta: Ruta): Future[List[Dron]]
+  def realizarRuta(dron: Dron, ruta: Ruta)
+  def entregarReporte(drones:List[Dron],id:Int)
+
 }
 
 sealed trait interpretacionRutaEntrega extends algebraRutaDeEntrega {
   implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
-  override def realizarRuta(dron: Dron, ruta: Ruta): Future[List[Dron]] = {
+  def entregarReporte(posiciones:List[Dron],id:Int)={
+    val pw=new PrintWriter(new File(s"out${id}.txt"))
+    println(posiciones)
+    pw.write("==Reporte de entregas==")
+    posiciones.map(y=>pw.write(s"\n(${y.posicion.coordenada.x},${y.posicion.coordenada.y}) Orientacion ${y.posicion.orientacion.toString}"))
+    pw.close()
+  }
 
-    Future(ruta.pedidos.scanLeft(dron)((a,b)=>interpretacionEntrega.realizarEntrega(a,b).get).tail)
-    //Future(ruta.pedidos.scanLeft(dron)((a, b) => interpretacionEntrega.realizarEntrega(a, b))..tail)
+  override def realizarRuta(dron: Dron, ruta: Ruta) = {
+
+    Future(entregarReporte(ruta.pedidos.scanLeft(dron)((a,b)=>interpretacionEntrega.realizarEntrega(a,b).get).tail,dron.id))
   }
 }
 
 
-object interpretacionRutaEntrega extends interpretacionRutaEntrega
+private object interpretacionRutaEntrega extends interpretacionRutaEntrega
 
-sealed trait algebraCorrientazoADomicilio {
-  def realizarDomicilios(rutas: List[Ruta]): List[Future[List[Dron]]]
+sealed trait algebraServicioCorrientazoADomicilio {
+  def realizarDomicilios(rutas: List[Try[Ruta]])
+
 }
+
+sealed trait servicioCorrientazoADomicilio extends algebraServicioCorrientazoADomicilio{
+  implicit val ecParaRutas = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
+
+
+  override def realizarDomicilios(rutas: List[Try[Ruta]]) = {
+    val rutasSucces=rutas.filter(x=>x.isSuccess)
+    val idDron:List[Int]=Range(1,rutasSucces.size+1).toList
+    val rutasConIdDron: List[(Try[Ruta], Int)] =rutasSucces.zip(idDron)
+    rutasConIdDron
+      .map(x=>x._1.fold(y=>{Future(List(Dron(1,Posicion(Coordenada(0,0),N()),10)))},z=>{
+        println("Entre")
+        interpretacionRutaEntrega.realizarRuta(Dron(x._2,Posicion(Coordenada(0,0),N()),10),z)}))
+  }
+}
+
+object servicioCorrientazoADomicilio extends servicioCorrientazoADomicilio
